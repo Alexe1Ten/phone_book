@@ -1,13 +1,17 @@
-def menu():
-      print("\nВыберите действие: \n"
-      "1. Отобразить весь справочник\n"
-      "2. Найти абонента по фамилии\n"
-      "3. Найти абонента по немеру телефона\n"
-      "4. Добавить нового абонемента\n"
-      "5. Сохранить справочник в текстовом формате\n"
-      "6. Завершить работу\n")
-      choice = int(input())
+def print_menu():
+      print(menu)
+      choice = int(input("Выберите действие: "))
       return choice
+
+def print_parametr_for_search():
+      for i, el in enumerate(headlines):
+            print(f"{i + 1}. {el}")
+      print()
+      choice = int(input("Выберите параметр для поиска: "))
+      return choice
+
+def clear_console():
+      print("\033c", end="")
 
 def read_txt(file_name: str):
       phone_book = []
@@ -28,10 +32,10 @@ def column_size(table: list):
             max_columns.append(max(col))
       return max_columns
 
-def filter_table(phone_book: list, key = 'Фамилия', parameter = -1):
+def filter_table(phone_book: list, key = "", parameter = -1):
       if parameter in [0,1,2,3]:
             for el in phone_book:
-                  if el[headlines[parameter]] == key:
+                  if el[headlines[parameter]] == key.lower().capitalize():
                         return [el]
             return []
       return phone_book
@@ -82,8 +86,14 @@ def change_number():
 # переменные
 file_name_1 = "phone_directory.txt"
 file_name = "phonebook.csv"
-
 headlines = ["Фамилия", "Имя", "Телефон", "Примечание"]
+menu = "1. Отобразить весь справочник\n"\
+      "2. Найти абонента\n"\
+      "3. Найти абонента по немеру телефона\n"\
+      "4. Добавить нового абонемента\n"\
+      "5. Сохранить справочник в текстовом формате\n"\
+      "6. Завершить работу\n"
+
 separator = 2
 
 # print(read_txt(file_name))
