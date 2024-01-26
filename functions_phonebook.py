@@ -3,12 +3,29 @@ def print_menu():
       choice = int(input("Выберите действие: "))
       return choice
 
+def print_submenu():
+      print(submenu)
+      choice = int(input("Выберите действие: "))
+      return choice
+
+def print_choice_menu():
+      print(choice_menu)
+      choice = int(input(f"Сохранить изменения в файл {file_name_1}?"))
+      return choice
+
 def print_parametr_for_search():
       for i, el in enumerate(headlines):
             print(f"{i + 1}. {el}")
       print()
-      choice = int(input("Выберите параметр для поиска: "))
-      return choice
+      choice = int(input(f"Выберите параметр для поиска: "))
+      return headlines[choice - 1]
+
+def print_parametr_for_change():
+      for i, el in enumerate(headlines):
+            print(f"{i + 1}. {el}")
+      print()
+      choice = int(input(f"Выберите параметр для изменения: "))
+      return headlines[choice - 1]
 
 def clear_console():
       print("\033c", end="")
@@ -32,12 +49,10 @@ def column_size(table: list):
             max_columns.append(max(col))
       return max_columns
 
-def filter_table(phone_book: list, key = "", parameter = -1):
-      if parameter in [0,1,2,3]:
-            for el in phone_book:
-                  if el[headlines[parameter]] == key.lower().capitalize():
-                        return [el]
-            return []
+def filter_table(phone_book: list, key = "", value = ""):
+      for el in phone_book:
+            if el[key] == value.lower().capitalize():
+                  return [el]
       return phone_book
 
 def print_headlines(colum_size: list):
@@ -58,30 +73,13 @@ def print_table(filter_table: list, max_columns: list):
             print()
 
 
-
-def find_by_lastname(phone_book: list,last_name: str):
-      max_columns = column_size(file_name)
-      # печать шапки таблицы
-      for n, column in enumerate(headlines):
-            print(f"{column:{max_columns[n]+separator}}", end="")
-      print()
-      # печать разделителя шапки
-      r = f"{'='*sum(max_columns)+'='*len(headlines)*separator}"
-      print(r[:-separator])
-      # печать тела таблицы
+def change_data(phone_book: list, key: str, val: str, key_for_change: str):
+      new_val = input(f"Введите новое значение для параметра {key_for_change}: ")
       for el in phone_book:
-            if el[headlines[0]] == last_name:
-                  for n in range(len(headlines)):
-                        print(f"{el[headlines[n]]:{max_columns[n]+separator}}", end="")
-                  print()
-
-      print("Такой фамилии нет в справочнике")
-
-def find_by_number():
-      print()
-
-def change_number():
-      print()
+            if el[key] == val.lower().capitalize():
+                  el[key_for_change] = new_val
+      clear_console()
+      return phone_book
 
 # переменные
 file_name_1 = "phone_directory.txt"
@@ -89,12 +87,12 @@ file_name = "phonebook.csv"
 headlines = ["Фамилия", "Имя", "Телефон", "Примечание"]
 menu = "1. Отобразить весь справочник\n"\
       "2. Найти абонента\n"\
-      "3. Найти абонента по немеру телефона\n"\
-      "4. Добавить нового абонемента\n"\
-      "5. Сохранить справочник в текстовом формате\n"\
-      "6. Завершить работу\n"
+      "3. Добавить нового абонемента\n"\
+      "4. Завершить работу\n"
+submenu = "1. Меню\n"\
+      "2. Изменить данные\n"
+choice_menu = "1. Да\n"\
+            "2. Нет\n"
 
 separator = 2
 
-# print(read_txt(file_name))
-# print(column_size(filter_table(read_txt(file_name))))
