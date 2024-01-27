@@ -6,6 +6,7 @@ def print_menu():
 def print_submenu():
       print(submenu)
       choice = int(input("Выберите действие: "))
+      clear_console()
       return choice
 
 def print_choice_menu():
@@ -73,7 +74,6 @@ def print_table(filter_table: list, max_columns: list):
                   print(f"{el[headlines[n]]:{max_columns[n]+separator}}", end="")
             print()
 
-
 def change_data(phone_book: list, key: str, val: str, key_for_change: str):
       new_val = input(f"Введите новое значение для параметра {key_for_change}: ")
       for el in phone_book:
@@ -90,6 +90,19 @@ def writing_to_file(filename , phone_book):
                         s+=v+','
                   phout.write(f'{s[:-1]}\n')
 
+def add_data(phone_book: list):
+      new_data = dict()
+      for el in headlines:
+            new_data[el] = input(f"Введите значение параметра {el}: ")
+      print("Данные успешно добавлены!")
+      return phone_book.append(new_data)
+
+def del_data(phone_book: list, key: str, val: str):
+      for i, el in enumerate(phone_book):
+            if el[key] == val.lower().capitalize():
+                  phone_book.pop(i)
+      return phone_book
+
 # переменные
 file_name_1 = "phone_directory.txt"
 file_name = "phonebook.csv"
@@ -99,9 +112,9 @@ menu = "1. Отобразить весь справочник\n"\
       "3. Добавить нового абонента\n"\
       "4. Завершить работу\n"
 submenu = "1. Меню\n"\
-      "2. Изменить данные\n"
+      "2. Изменить данные\n"\
+      "3. Удалить абонента\n"
 choice_menu = "1. Да\n"\
             "2. Нет\n"
-
 separator = 2
 

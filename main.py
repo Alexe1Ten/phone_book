@@ -1,8 +1,7 @@
 from functions_phonebook import *
-import os
 
 def main():
-    phonebook = read_txt(file_name)
+    phonebook = read_txt(file_name_1)
     clear_console()
     choice = print_menu()
     while choice != 4:
@@ -32,10 +31,17 @@ def main():
                 if choice3 == 1:
                     writing_to_file(file_name_1, phonebook)
                     print(f"Изменения успешно внесены в файл {file_name_1}")
-
+            elif choice2 == 3:
+                del_data(phonebook, key_for_search, value_for_search)
+                writing_to_file(file_name_1, phonebook)
+                print("Данные умпешно удалены!")
+                input("\nНажмите Enter чтобы вернуться в меню")
+        if choice == 3:
+            add_data(phonebook)
+            writing_to_file(file_name_1, phonebook)
         
         clear_console()
         choice = print_menu()
-
+    clear_console()
 main()
 
