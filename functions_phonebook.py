@@ -10,7 +10,7 @@ def print_submenu():
 
 def print_choice_menu():
       print(choice_menu)
-      choice = int(input(f"Сохранить изменения в файл {file_name_1}?"))
+      choice = int(input(f"Сохранить изменения в файл {file_name_1}? "))
       return choice
 
 def print_parametr_for_search():
@@ -50,10 +50,11 @@ def column_size(table: list):
       return max_columns
 
 def filter_table(phone_book: list, key = "", value = ""):
+      if key == "" or value == "":
+            return phone_book
       for el in phone_book:
             if el[key] == value.lower().capitalize():
                   return [el]
-      return phone_book
 
 def print_headlines(colum_size: list):
       # печать шапки таблицы
@@ -81,13 +82,21 @@ def change_data(phone_book: list, key: str, val: str, key_for_change: str):
       clear_console()
       return phone_book
 
+def writing_to_file(filename , phone_book):
+      with open(filename,'w' ,encoding='utf-8') as phout:
+            for i in range(len(phone_book)):
+                  s='' 
+                  for v in phone_book[i].values():
+                        s+=v+','
+                  phout.write(f'{s[:-1]}\n')
+
 # переменные
 file_name_1 = "phone_directory.txt"
 file_name = "phonebook.csv"
 headlines = ["Фамилия", "Имя", "Телефон", "Примечание"]
 menu = "1. Отобразить весь справочник\n"\
       "2. Найти абонента\n"\
-      "3. Добавить нового абонемента\n"\
+      "3. Добавить нового абонента\n"\
       "4. Завершить работу\n"
 submenu = "1. Меню\n"\
       "2. Изменить данные\n"
